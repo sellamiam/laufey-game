@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Laufey: Ascension of a Goddess 👑</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Intro Splash -->
+    <div id="splash-screen" class="screen active">
+        <div class="splash-bg"></div>
+        <div class="splash-content">
+            <div class="laufey-photo-container">
+                <img src="images.jpeg" alt="Laufey" class="laufey-photo" id="laufey-intro-photo">
+                <div class="photo-glow"></div>
+            </div>
+            <h1 class="splash-title">LAUFEY</h1>
+            <p class="splash-subtitle">Ascension of a Goddess 👑</p>
+            <div class="splash-quote">"Help her ascend to GODDESS MODE 👑"</div>
+            <button id="splash-start-btn" class="mega-btn">
+                <span class="btn-glow"></span>
+                <span class="btn-text">✨ Enter the Journey ✨</span>
+            </button>
+        </div>
+        <div class="floating-music">
+            <span class="music-note m1">♪</span>
+            <span class="music-note m2">♫</span>
+            <span class="music-note m3">♬</span>
+            <span class="music-note m4">🎻</span>
+            <span class="music-note m5">♪</span>
+            <span class="music-note m6">🎹</span>
+        </div>
+    </div>
+
+    <!-- Title/Menu Screen -->
+    <div id="title-screen" class="screen">
+        <div class="stars"></div>
+        <div class="title-content">
+            <h1 class="title">Laufey</h1>
+            <p class="subtitle">Ascension of a Goddess 👑</p>
+            <p class="tagline">6 Chapters • 6 Prizes • Infinite Slay</p>
+
+            <div class="how-to-play">
+                <div class="how-title">🎮 How to Play</div>
+                <div class="how-items">
+                    <span>📱 Touch buttons on mobile</span>
+                    <span>⌨️ Arrow keys + Space on desktop</span>
+                    <span>🏁 Reach the finish!</span>
+                </div>
+                <div class="how-warning">⚠️ Avoid traps! Double-tap jump to spin!</div>
+                <div class="how-tip">💡 Know Laufey's lyrics? You can save her if she falls!</div>
+            </div>
+
+            <div class="difficulty-selection">
+                <div class="difficulty-title">How big of a fan are you?</div>
+                <div class="difficulty-buttons">
+                    <button class="difficulty-btn" data-difficulty="easy">
+                        <span class="diff-emoji">😴</span>
+                        <span class="diff-name">Lazy Fan</span>
+                        <span class="diff-desc">5 lives, fewer traps</span>
+                    </button>
+                    <button class="difficulty-btn active" data-difficulty="medium">
+                        <span class="diff-emoji">🎧</span>
+                        <span class="diff-name">OK Fan</span>
+                        <span class="diff-desc">3 lives, normal traps</span>
+                    </button>
+                    <button class="difficulty-btn" data-difficulty="hard">
+                        <span class="diff-emoji">👑</span>
+                        <span class="diff-name">SUPER FAN</span>
+                        <span class="diff-desc">2 lives, maximum chaos</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="stage-progress-preview" id="stage-preview">
+                <!-- Filled dynamically -->
+            </div>
+
+            <button id="start-btn" class="glow-btn">
+                <span>Begin Chapter 1</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Story Intro Screen -->
+    <div id="story-screen" class="screen">
+        <div class="stars"></div>
+        <div class="story-content">
+            <div class="chapter-number" id="chapter-number">1 / 12</div>
+            <div class="story-chapter" id="story-chapter">
+                <h2 class="chapter-title"></h2>
+                <p class="chapter-text"></p>
+                <div class="chapter-year"></div>
+            </div>
+            <div class="prize-preview">
+                <span class="prize-label">🎁 Stage Prize:</span>
+                <span class="prize-name" id="prize-preview-name">Piano Badge</span>
+            </div>
+            <div class="mission-preview">
+                <span class="mission-icon">👑</span>
+                <span class="mission-text">Reach the crown to ascend! 👑</span>
+            </div>
+            <button id="continue-story-btn" class="glow-btn">
+                <span>Let's Go!</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+        <div class="game-header">
+            <div class="level-info">
+                <span class="level-name" id="level-name">Chapter 1: Iceland</span>
+                <span class="level-goal" id="level-goal">👑 Reach the crown!</span>
+            </div>
+            <div class="lives-container">
+                <span class="lives-label">Lives:</span>
+                <span id="lives-display" class="lives-hearts">❤️❤️❤️</span>
+            </div>
+            <div class="vinyl-counter">
+                <span>📀</span>
+                <span id="vinyl-display">0 / 18</span>
+            </div>
+            <div class="stage-dots" id="stage-dots">
+                <!-- 12 dots filled dynamically -->
+            </div>
+            <div class="progress-meter">
+                <span class="progress-label">Progress</span>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+                <span class="castle-icon">👑</span>
+            </div>
+        </div>
+        <canvas id="game-canvas"></canvas>
+        <div id="pause-overlay" class="pause-overlay hidden">
+            <div class="pause-content">
+                <h2>Paused</h2>
+                <p class="pause-tip" id="pause-tip">TIP: Double jump to avoid obstacles!</p>
+                <button id="resume-btn" class="glow-btn">Resume</button>
+            </div>
+        </div>
+
+        <!-- Mobile Touch Controls -->
+        <div class="mobile-controls" id="mobile-controls">
+            <button class="touch-btn touch-left" id="touch-left">◀</button>
+            <button class="touch-btn touch-right" id="touch-right">▶</button>
+            <button class="touch-btn touch-slow" id="touch-slow">🚶</button>
+            <button class="touch-btn touch-jump" id="touch-jump">⬆️ JUMP</button>
+        </div>
+    </div>
+
+    <!-- Game Over / Lyric Challenge Screen -->
+    <div id="gameover-screen" class="screen">
+        <div class="stars"></div>
+        <div class="gameover-content">
+            <div class="gameover-emoji">💔</div>
+            <h2 class="gameover-title">Oh no! Laufey fell!</h2>
+            <p class="gameover-subtitle">But true fans can save her...</p>
+
+            <div class="lyric-challenge">
+                <div class="challenge-label">🎵 Complete the lyric to resurrect! 🎵</div>
+                <div class="lyric-container">
+                    <p class="lyric-text" id="lyric-text">"I'm just a _____ waiting for love..."</p>
+                    <p class="song-hint" id="song-hint">Song: From the Start</p>
+                </div>
+
+                <!-- Multiple Choice Options -->
+                <div class="lyric-options" id="lyric-options">
+                    <button class="lyric-option" data-answer="0">Option A</button>
+                    <button class="lyric-option" data-answer="1">Option B</button>
+                    <button class="lyric-option" data-answer="2">Option C</button>
+                    <button class="lyric-option" data-answer="3">Option D</button>
+                </div>
+
+                <div class="challenge-buttons">
+                    <button id="skip-challenge-btn" class="skip-btn">😢 Give Up (Restart from Chapter 1)</button>
+                </div>
+                <p class="challenge-result" id="challenge-result"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Prize Unlock Screen -->
+    <div id="prize-screen" class="screen">
+        <div class="stars"></div>
+        <div class="prize-content">
+            <div class="prize-sparkle"></div>
+            <div class="unlocked-badge">🎉 STAGE COMPLETE! 🎉</div>
+            <div class="prize-icon" id="prize-icon">🎹</div>
+            <h2 class="prize-title" id="prize-title">Piano Badge Unlocked!</h2>
+            <p class="prize-description" id="prize-description">You've mastered the first step of Laufey's journey!</p>
+            <div class="laufey-quote" id="laufey-quote">
+                <img src="images.jpeg" alt="Laufey" class="quote-photo">
+                <p class="quote-text">"Music was always in our home..."</p>
+            </div>
+            <div class="stage-stats">
+                <div class="stat">
+                    <span class="stat-value" id="stat-lives">3</span>
+                    <span class="stat-label">Lives Left</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="stat-collected">5</span>
+                    <span class="stat-label">Collected</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="stat-style">25</span>
+                    <span class="stat-label">Style Points</span>
+                </div>
+            </div>
+
+            <!-- BONUS PRIZE - Only for OK Fan & Super Fan! -->
+            <div class="bonus-prize-section" id="bonus-prize-section" style="display: none;">
+                <div class="bonus-label">🌟 SUPER FAN BONUS! 🌟</div>
+                <div class="bonus-content">
+                    <span class="bonus-icon" id="bonus-icon">🎧</span>
+                    <div class="bonus-info">
+                        <span class="bonus-name" id="bonus-name">Secret Playlist</span>
+                        <span class="bonus-desc" id="bonus-desc">Exclusive content unlocked!</span>
+                    </div>
+                </div>
+                <div class="bonus-note">Lazy fans miss this! 😴</div>
+            </div>
+            <button id="next-level-btn" class="glow-btn mega-btn">
+                <span class="btn-glow"></span>
+                <span class="btn-text">Next Chapter →</span>
+            </button>
+        </div>
+        <div class="confetti-container" id="prize-confetti"></div>
+    </div>
+
+    <!-- Final Victory Screen -->
+    <div id="end-screen" class="screen">
+        <div class="stars"></div>
+        <div class="end-content">
+            <div class="grammy-trophy">
+                <span class="trophy-glow"></span>
+                🏆
+            </div>
+            <h1 class="end-title">A LEGEND IS BORN!</h1>
+            <p class="end-quote">"Bewitched" - Best Traditional Pop Vocal Album</p>
+
+            <div class="journey-timeline">
+                <div class="timeline-label">Your Journey</div>
+                <div class="timeline-items" id="timeline-items">
+                    <!-- Filled with all 12 prizes -->
+                </div>
+            </div>
+
+            <div class="final-photo-section">
+                <img src="crown_image.jpg" alt="Laufey" class="final-photo">
+                <div class="birthday-card">
+                    <div class="birthday-emoji">🎂</div>
+                    <h2 class="birthday-title">HAPPY 13TH BIRTHDAY, CONNOR 🎂</h2>
+                    <p class="birthday-message">
+                        Connor, you saved Laufey.<br>
+                        The ritual is complete.<br>
+                        The council has decided.<br><br>
+                        <strong>You will NOT be skinned today.</strong><br><br>
+                        Your flesh remains yours.<br>
+                        Your legend is permanent.<br>
+                        Your slay is eternal.
+                    </p>
+                    <p class="birthday-signature">— Mo 👑</p>
+                </div>
+            </div>
+
+            <button id="play-again-btn" class="glow-btn">
+                <span>Play Again</span>
+            </button>
+        </div>
+        <div class="confetti-container" id="confetti"></div>
+    </div>
+
+    <script src="game.js?v=babyphoto"></script>
+</body>
+
+</html>
